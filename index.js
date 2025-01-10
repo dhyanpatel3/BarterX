@@ -1,62 +1,65 @@
-const http = require('http');
-const fs = require('fs');
-
-const PORT = 8050;
-const LOG_FILE = 'log.txt';
-
-const logRequest = (url) => {
-  const timestamp = new Date().toISOString();
-  const logEntry = `${timestamp} - Request URL: ${url}\n`;
-  fs.appendFileSync(LOG_FILE, logEntry, 'utf-8');
-};
-
+import http from "http"; 
 const server = http.createServer((req, res) => {
-  logRequest(req.url);
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-  switch (req.url) {
-    case '/':
-      res.end('Welcome to the BarterX');
-      break;
-    case '/products':
-      res.end('Here are the products up for Sale in BarterX');
-      break;
-    case '/login':
-      res.end('Login to the BarterX');
-      break;
-    case '/signup':
-      res.end('Sign up to the BarterX');
-      break;
-    case '/profile':
-      res.end('Trader Profile');
-      break;
-    case '/cart':
-      res.end('Your Shopping Cart is here');
-      break;
-    case '/checkout':
-      res.end("Let's start shipping");
-      break;
-    case '/orders':
-      res.end('Your Orders are here');
-      break;
-    case '/categories':
-      res.end('Browse Categories');
-      break;
-    case '/chat':
-      res.end('Your Chat with fellow Traders');
-      break;
-    case '/contact':
-      res.end('Contact Us at');
-      break;
-    case '/about':
-      res.end('The modern approach to trading our commodities');
-      break;
-    default:
-      res.writeHead(404);
-      res.end('Page not found');
-  }
+    if (req.url === "/") {
+        res.write("Welcome to the BarterX");
+        res.end();
+    } else if (req.url === "/api/products") {
+        res.writeHead(200, {"Content-Type": "application/json"});
+        let payload = [
+            { "id": 1, "name": "Used Laptop", "price": 300 },
+            { "id": 2, "name": "Second-hand Bicycle", "price": 50 }
+        ]
+        res.write(JSON.stringify(payload));
+        res.end();
+    } else if (req.url === "/login") {
+        const menu_info = "Login to the BarterX";
+        res.write(menu_info);
+        res.end();
+    } else if (req.url === "/signup") {
+        const contact_info = "Sign up to the BarterX";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/profile") {
+        const contact_info = "Trader Profile";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/cart") {
+        const contact_info = "Your Shopping Cart is here";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/checkout") {
+        const contact_info = "Let's start shipping";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/orders") {
+        const contact_info = "Your Orders are here";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/categories") {
+        const contact_info = "Browse Categories";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/chat") {
+        const contact_info = "Your Chat with fellow Traders";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/contact") {
+        const contact_info = "Contact Us at";
+        res.write(contact_info);
+        res.end();
+    } else if (req.url === "/chat") {
+        const contact_info = "Your Chat with fellow Traders";
+        res.write(contact_info);
+        res.end();
+    } else {
+        res.writeHead(404, {"Content-Type": "application/json"});
+        res.end(JSON.stringify({
+            "error": "Page not found",
+            "statusCode": 404
+        }));
+    }
 });
-
+let PORT = 8050;
 server.listen(PORT, () => {
-  console.log(`Server initiated on port ${PORT}...`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
