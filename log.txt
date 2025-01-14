@@ -66,3 +66,5 @@
 2025-01-10T08:28:03.758Z - Request URL: /products
 2025-01-10T08:28:28.716Z - Request URL: /api/products
 2025-01-10T08:28:44.446Z - Request URL: /api/products
+[2025-01-14T04:26:30.077Z] GET /
+[2025-01-14T04:26:31.224Z] GET /favicon.ico
